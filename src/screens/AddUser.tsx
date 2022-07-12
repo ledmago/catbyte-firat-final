@@ -21,7 +21,7 @@ export default function RootPage(props: any) {
                 username,
                 image,
                 email,
-                age: Number(age) || 0,
+                age: age,
                 id: user.length + 1
             }
         });

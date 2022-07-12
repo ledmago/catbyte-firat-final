@@ -7,7 +7,6 @@ import { DELETE_USER } from '../store/users.action';
 
 
 export default function RootPage(props: any) {
-    console.log(props.route.params.user)
     const { image, username, age, name, address, email, ip } = props.route.params.user
     return (
         <View style={styles.container}>
