@@ -2,22 +2,34 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native';
+import { DELETE_USER } from '../store/users.action';
 
 interface UserCardIProps {
-    picture: string;
-    username: string;
-    age: number;
+    user: {
+        image: string;
+        username: string;
+        age: number;
+        id: number;
+    }
 }
 
 export default function RootPage(props: UserCardIProps) {
     const navigation: any = useNavigation();
+    const { image, username, age, id } = props.user;
+    const dispatch = useDispatch();
+    const deleteUser = (id: number) => {
+        dispatch({ type: DELETE_USER, payload: { id: id } })
+    }
     return (
-        <TouchableOpacity style={styles.container} onPress={() => navigation.push("UserDetail", { username: props.username, age: props.age, picture: props.picture })}>
-            <ImageBackground source={{ uri: props.picture }} style={{ width: '100%', height: '100%', }} resizeMode='contain'>
+        <TouchableOpacity style={styles.container} onPress={() => navigation.push("UserDetail", { user: props.user })}>
+            <ImageBackground source={{ uri: image }} style={{ width: '100%', height: '100%', }} resizeMode='contain'>
                 <View style={styles.overlay}>
-                    <Text style={styles.username}>{props.username}</Text>
-                    <Text style={styles.age}>{props.age}</Text>
+                    <Text style={styles.username}>{username}</Text>
+                    <Text style={styles.age}>{age}</Text>
                 </View>
+                <TouchableOpacity style={styles.close} onPress={() => deleteUser(id)}>
+                    <Text style={styles.closeText}>X</Text>
+                </TouchableOpacity>
             </ImageBackground>
         </TouchableOpacity>
     )
@@ -60,8 +72,22 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#FFF',
         fontWeight: 'bold'
+    },
+    close: {
+        position: 'absolute',
+        top: 5,
+        right: 5,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        width: 20,
+        height: 20,
+        borderRadius: 20 / 2,
+        justifyContent: 'center',
+    },
+    closeText: {
+        color: '#FFF',
+        textAlign: 'center',
+        fontWeight: 'bold'
     }
-
 });
 
 

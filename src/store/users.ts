@@ -1,4 +1,4 @@
-import { ADD_USER, SET_USER } from "./users.action";
+import { ADD_USER, DELETE_USER, SET_USER } from "./users.action";
 
 const initial_state = {
   users: [],
@@ -6,13 +6,19 @@ const initial_state = {
 
 const reducer = (
   state = initial_state,
-  { type, payload }: { type: string; payload: User | User[] }
+  { type, payload }: { type: string; payload: any }
 ) => {
   switch (type) {
     case ADD_USER:
-      return { ...state, users: [...state.users, payload] };
+      return { ...state, users: [payload, ...state.users] };
     case SET_USER:
       return { ...state, users: payload };
+    case DELETE_USER:
+      return {
+        ...state,
+        users: state.users.filter((user: User) => user.id !== payload.id),
+      };
+
     default:
       break;
   }
