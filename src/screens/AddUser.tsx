@@ -33,7 +33,7 @@ export default function RootPage(props: any) {
             <TextInput style={styles.input} onChangeText={(val) => setUsername(val)} placeholder="Username"></TextInput>
             <TextInput style={styles.input} onChangeText={(val) => setImage(val)} placeholder="Image"></TextInput>
             <TextInput style={styles.input} onChangeText={(val) => setEmail(val)} placeholder="Email"></TextInput>
-            <TextInput style={styles.input} onChangeText={(val) => setAge(val)} placeholder="Username"></TextInput>
+            <TextInput style={styles.input} onChangeText={(val) => setAge(val)} placeholder="Age"></TextInput>
             <TouchableOpacity style={styles.addButton} onPress={() => addUser()}>
                 <Text style={styles.buttonText}>Add User</Text>
             </TouchableOpacity>
